@@ -57,7 +57,21 @@ export default function UsersPage() {
   const { users, loading, error, fetchUsers, createUser } = useUsers();
   const { user: currentUser } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const toast = useToast();// Form state
+  const toast = useToast();
+
+  // Get available roles based on current user's role
+  const getAvailableRoles = () => {
+    if (currentUser?.role === 'SUPER_ADMIN') {
+      return [{ value: 'FAMILY_ADMIN', label: 'Family Admin' }];
+    }
+    // FAMILY_ADMIN can create member and viewer
+    return [
+      { value: 'member', label: 'Member' },
+      { value: 'viewer', label: 'Viewer' },
+    ];
+  };
+
+  // Form state
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -66,7 +80,7 @@ export default function UsersPage() {
     mobile: '',
     password: '',
     confirmPassword: '',
-    role: 'member',
+    role: '',
   });
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -82,24 +96,13 @@ export default function UsersPage() {
   const canCreateUsers = currentUser?.role === 'FAMILY_ADMIN' || 
                          currentUser?.role === 'admin' || 
                          currentUser?.role === 'SUPER_ADMIN';
-                         
+
 
   // Handle button click
   const handleAddUser = () => {
     console.log('Add User button clicked');
+    setFormData(prev => ({ ...prev, role: '' }));
     onOpen();
-  };
-
-  // Get available roles based on current user's role
-  const getAvailableRoles = () => {
-    if (currentUser?.role === 'SUPER_ADMIN') {
-      return [{ value: 'FAMILY_ADMIN', label: 'Family Admin' }];
-    }
-    // FAMILY_ADMIN can create member and viewer
-    return [
-      { value: 'member', label: 'Member' },
-      { value: 'viewer', label: 'Viewer' },
-    ];
   };
 
   const handleChange = (e) => {
@@ -171,7 +174,7 @@ export default function UsersPage() {
         mobile: '',
         password: '',
         confirmPassword: '',
-        role: 'member',
+        role: '',
       });
       onClose();
       fetchUsers(); // Refresh the list
@@ -197,7 +200,7 @@ export default function UsersPage() {
       mobile: '',
       password: '',
       confirmPassword: '',
-      role: 'member',
+      role: '',
     });
     setFormErrors({});
     onClose();
@@ -428,6 +431,7 @@ export default function UsersPage() {
                       name="role"
                       value={formData.role}
                       onChange={handleChange}
+                      placeholder="Select a role"
                     >
                       {getAvailableRoles().map((role) => (
                         <option key={role.value} value={role.value}>
