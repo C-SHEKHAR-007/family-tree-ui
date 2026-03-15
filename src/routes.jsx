@@ -14,6 +14,7 @@ import { PersonsList, PersonCreate, PersonEdit, PersonView } from './pages/Perso
 import FamilyTree from './pages/FamilyTree';
 import Relationships from './pages/Relationships';
 import Profile from './pages/Profile';
+import { UsersPage } from './pages/Users';
 
 // Create router configuration
 const router = createBrowserRouter([
@@ -109,6 +110,16 @@ const router = createBrowserRouter([
       <ProtectedRoute>
         <Layout>
           <Profile />
+        </Layout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/users',
+    element: (
+      <ProtectedRoute>
+        <Layout>
+          <UsersPage />
         </Layout>
       </ProtectedRoute>
     ),

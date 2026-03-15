@@ -21,7 +21,7 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon, SettingsIcon } from '@chakra-ui/icons';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { FiUser, FiLogOut, FiHome, FiUsers, FiGitBranch, FiLink, FiShield } from 'react-icons/fi';
+import { FiUser, FiLogOut, FiHome, FiUsers, FiGitBranch, FiLink, FiShield, FiUserPlus } from 'react-icons/fi';
 import { useAuth } from '../../hooks';
 import { getRoleDisplayName, getRoleColor } from '../../utils/permissions';
 
@@ -96,6 +96,14 @@ export default function Navbar() {
                     <Text>Relationships</Text>
                   </HStack>
                 </NavLink>
+                {isAdmin && (
+                  <NavLink to="/users">
+                    <HStack spacing={1}>
+                      <FiUserPlus />
+                      <Text>Users</Text>
+                    </HStack>
+                  </NavLink>
+                )}
               </HStack>
             )}
           </HStack>
@@ -140,8 +148,8 @@ export default function Navbar() {
                     {isAdmin && (
                       <>
                         <MenuDivider />
-                        <MenuItem as={RouterLink} to="/admin/users" icon={<FiShield />}>
-                          Admin Panel
+                        <MenuItem as={RouterLink} to="/users" icon={<FiUserPlus />}>
+                          Manage Users
                         </MenuItem>
                       </>
                     )}
@@ -183,6 +191,7 @@ export default function Navbar() {
               <NavLink to="/persons">Persons</NavLink>
               <NavLink to="/family-tree">Family Tree</NavLink>
               <NavLink to="/relationships">Relationships</NavLink>
+              {isAdmin && <NavLink to="/users">Users</NavLink>}
             </Stack>
           </Box>
         )}

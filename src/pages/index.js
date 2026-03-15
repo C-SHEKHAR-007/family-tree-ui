@@ -6,3 +6,4 @@ export * from './Persons';
 export { default as FamilyTree } from './FamilyTree';
 export { default as Relationships } from './Relationships';
 export { default as Profile } from './Profile';
+export * from './Users';

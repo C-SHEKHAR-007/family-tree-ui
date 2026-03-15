@@ -2,7 +2,7 @@ import React from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { AuthProvider } from './hooks';
-import router from './routes';
+import router from './routes.jsx';
 
 // Customize Chakra UI theme
 const theme = extendTheme({
