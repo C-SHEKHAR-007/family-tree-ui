@@ -1,16 +1,123 @@
-# React + Vite
+# Family Tree Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React frontend for the Family Tree application built with Chakra UI.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Authentication**: Login/Register with JWT token management
+- **Dashboard**: Overview of family data with quick actions
+- **Person Management**: Full CRUD operations for family members
+- **Family Tree Visualization**: Interactive tree showing ancestors, descendants, and siblings
+- **Relationships**: Manage family relationships (parent-child, spouse, sibling)
+- **Profile Management**: View and edit user profile
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 19** - UI library
+- **Chakra UI v2** - Component library
+- **React Router v6** - Client-side routing
+- **Axios** - HTTP client
+- **Vite** - Build tool
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+- Backend server running at `http://localhost:8000`
+
+### Installation
+
+```bash
+# Install dependencies
+npm install
+
+# Create environment file
+cp .env.example .env
+
+# Start development server
+npm run dev
+```
+
+### Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+VITE_API_URL=http://localhost:8000
+VITE_APP_NAME=FamilyTree
+```
+
+## Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── Footer/
+│   ├── Layout/
+│   ├── LoadingSpinner/
+│   ├── Navbar/
+│   └── ProtectedRoute/
+├── hooks/               # Custom React hooks
+│   ├── useAuth.jsx      # Authentication context & hook
+│   ├── useFamilyTree.js # Family tree operations
+│   ├── usePersons.js    # Person CRUD operations
+│   └── useRelationships.js
+├── pages/               # Page components
+│   ├── Dashboard/
+│   ├── FamilyTree/
+│   ├── Home/
+│   ├── Login/
+│   ├── Persons/
+│   ├── Profile/
+│   ├── Register/
+│   └── Relationships/
+├── services/            # API service modules
+│   ├── api.js           # Axios instance configuration
+│   ├── authService.js   # Authentication API
+│   ├── personService.js # Person API
+│   ├── relationshipService.js
+│   └── treeService.js   # Family tree traversal API
+├── App.jsx              # Root component with providers
+├── main.jsx             # Entry point
+└── routes.jsx           # Route configuration
+```
+
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+## API Endpoints Used
+
+The client connects to these backend endpoints:
+
+### Authentication
+- `POST /auth/login` - User login
+- `POST /auth/register` - User registration
+- `GET /auth/me` - Get current user profile
+
+### Persons
+- `GET /persons/` - List all persons
+- `GET /persons/{id}` - Get person by ID
+- `GET /persons/search` - Search persons
+- `POST /persons/` - Create person
+- `PUT /persons/{id}` - Update person
+- `DELETE /persons/{id}` - Delete person
+
+### Relationships
+- `GET /relationships/` - List all relationships
+- `POST /relationships/` - Create relationship
+- `DELETE /relationships/{id}` - Delete relationship
+
+### Family Tree
+- `GET /tree/{id}/ancestors` - Get ancestors
+- `GET /tree/{id}/descendants` - Get descendants
+- `GET /tree/{id}/siblings` - Get siblings
+
+## License
+
+MIT
